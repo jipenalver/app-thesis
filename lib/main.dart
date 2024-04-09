@@ -1,8 +1,19 @@
 import 'views/login.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 
-void main() {
+void main() async {
+  if (kIsWeb) {
+    // initialiaze the facebook javascript SDK
+    await FacebookAuth.i.webAndDesktopInitialize(
+      appId: "1345013539767157",
+      cookie: true,
+      xfbml: true,
+      version: "v15.0",
+    );
+  }
   runApp(const MyApp());
 }
 

@@ -42,5 +42,9 @@ app.*.map.json
 /android/app/profile
 /android/app/release
 
+
 # Vscode
 .vscode
+
+# Android Facebook
+/android/app/src/main/res/values/strings.xml

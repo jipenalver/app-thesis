@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:msit_thesis/states/signup_states.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 // import 'package:cached_network_image/cached_network_image.dart';
 
@@ -13,11 +14,7 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  // void _incrementCounter() {
-  //   setState(() {
-  //     _counter++;
-  //   });
-  // }
+  var signupState = SignupState();
 
   @override
   Widget build(BuildContext context) {
@@ -66,8 +63,7 @@ class _LoginPageState extends State<LoginPage> {
                               fontSize: 20.sp, fontWeight: FontWeight.bold),
                           shape: const BeveledRectangleBorder(
                               borderRadius: BorderRadius.zero)),
-                      onPressed: () => Fluttertoast.showToast(
-                          msg: "This is Center Short Toast", fontSize: 18.sp),
+                      onPressed: () => signupState.loginFacebook(),
                       label: const Text(
                         'Login with Facebook',
                         textAlign: TextAlign.center,
@@ -84,7 +80,7 @@ class _LoginPageState extends State<LoginPage> {
                             borderRadius: BorderRadius.zero)),
                     onPressed: () => Fluttertoast.showToast(
                         msg: "This is Center Short Toast", fontSize: 18.sp),
-                    child: const Text('Signup with Facebook'))
+                    child: const Text('Dont have account? Signup'))
               ],
             ),
           )),

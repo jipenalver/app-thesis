@@ -53,7 +53,7 @@ class _MyAppState extends State<MyApp> {
           home: child,
         );
       },
-      child: const DashboardPage(title: 'SIAM'),
+      child: const LoginPage(title: 'SIAM'),
     );
   }
 }

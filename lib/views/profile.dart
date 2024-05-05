@@ -1,27 +1,26 @@
 import 'package:flutter/material.dart';
-import 'package:msit_thesis/states/signup_states.dart';
+import 'package:msit_thesis/widget/profile_widget.dart';
+import 'package:msit_thesis/utils/user_preferences.dart';
 
 class ProfilePage extends StatefulWidget {
-  const ProfilePage({super.key, required this.title});
-
-  final String title;
+  const ProfilePage({super.key});
 
   @override
   State<ProfilePage> createState() => _ProfilePageState();
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-  var signupState = SignupState();
-
-  int index = 0;
+  final user = UserPreferences.myUser;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      alignment: Alignment.center,
-      padding: const EdgeInsets.all(32),
-      child: const Column(
-        children: [],
+      color: Colors.white,
+      child: ListView(
+        physics: const BouncingScrollPhysics(),
+        children: [
+          ProfileWidget(imagePath: user.imagePath, onClicked: () async {})
+        ],
       ),
     );
   }

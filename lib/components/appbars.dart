@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 final appBars = [
@@ -43,7 +44,7 @@ final appBars = [
     ),
     actions: [
       IconButton(
-        icon: const Icon(Icons.notifications_active),
+        icon: const Icon(CupertinoIcons.moon_stars),
         onPressed: () {},
       )
     ],

@@ -45,7 +45,7 @@ class _DashboardPageState extends State<DashboardPage> {
         children: [],
       ),
     ),
-    const ProfilePage(title: 'Profile')
+    const ProfilePage()
   ];
 
   @override

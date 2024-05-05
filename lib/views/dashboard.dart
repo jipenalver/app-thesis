@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+import 'package:msit_thesis/views/profile.dart';
+import 'package:msit_thesis/components/appbars.dart';
 import 'package:msit_thesis/states/signup_states.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 
 class DashboardPage extends StatefulWidget {
@@ -18,7 +18,7 @@ class _DashboardPageState extends State<DashboardPage> {
 
   int index = 0;
 
-  final dummyPages = [
+  final pages = [
     Container(
       alignment: Alignment.center,
       padding: const EdgeInsets.all(32),
@@ -45,13 +45,7 @@ class _DashboardPageState extends State<DashboardPage> {
         children: [],
       ),
     ),
-    Container(
-      alignment: Alignment.center,
-      padding: const EdgeInsets.all(32),
-      child: const Column(
-        children: [],
-      ),
-    )
+    const ProfilePage(title: 'Profile')
   ];
 
   @override
@@ -63,25 +57,9 @@ class _DashboardPageState extends State<DashboardPage> {
               end: Alignment.bottomCenter,
               colors: [Colors.white70, Colors.green])),
       child: Scaffold(
-        appBar: AppBar(
-          title: const Text('Dummy App'),
-          leading: IconButton(
-            icon: const Icon(Icons.menu),
-            onPressed: () {},
-          ),
-          actions: [
-            IconButton(
-              icon: const Icon(Icons.search),
-              onPressed: () {},
-            ),
-            IconButton(
-              icon: const Icon(Icons.notifications_active),
-              onPressed: () {},
-            )
-          ],
-        ),
+        appBar: appBars[index],
         backgroundColor: Colors.transparent,
-        body: dummyPages[index],
+        body: pages[index],
         bottomNavigationBar: NavigationBar(
           height: 60,
           selectedIndex: index,

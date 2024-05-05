@@ -47,7 +47,8 @@ class _MyAppState extends State<MyApp> {
           title: 'SIAM',
           theme: ThemeData(
             useMaterial3: true,
-            colorScheme: ColorScheme.fromSeed(seedColor: Colors.green),
+            primaryColor: Colors.green.shade300,
+            // colorScheme: ColorScheme.fromSeed(seedColor: Colors.green),
             textTheme: Typography.englishLike2018.apply(fontSizeFactor: 1.sp),
           ),
           home: child,

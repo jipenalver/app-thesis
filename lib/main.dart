@@ -49,7 +49,7 @@ class _MyAppState extends State<MyApp> {
             useMaterial3: true,
             primaryColor: Colors.green.shade300,
             // colorScheme: ColorScheme.fromSeed(seedColor: Colors.green),
-            textTheme: Typography.englishLike2018.apply(fontSizeFactor: 1.sp),
+            // textTheme: Typography.englishLike2018.apply(fontSizeFactor: 1.sp),
           ),
           home: child,
         );

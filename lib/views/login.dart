@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:msit_thesis/states/auth_states.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 
 class LoginPage extends StatefulWidget {
@@ -57,7 +55,7 @@ class _LoginPageState extends State<LoginPage> {
                           foregroundColor: Colors.black,
                           backgroundColor: Colors.green,
                           padding: const EdgeInsets.symmetric(
-                              horizontal: 32, vertical: 16),
+                              horizontal: 32, vertical: 12),
                           textStyle: const TextStyle(
                               fontSize: 22, fontWeight: FontWeight.bold),
                           shape: const BeveledRectangleBorder(
@@ -68,21 +66,6 @@ class _LoginPageState extends State<LoginPage> {
                         textAlign: TextAlign.center,
                       )),
                 ),
-                // TextButton(
-                //     style: TextButton.styleFrom(
-                //         foregroundColor: Colors.black87,
-                //         padding: const EdgeInsets.symmetric(
-                //             horizontal: 32, vertical: 16),
-                //         textStyle: const TextStyle(
-                //             fontSize: 18, fontWeight: FontWeight.bold),
-                //         shape: const BeveledRectangleBorder(
-                //             borderRadius: BorderRadius.zero)),
-                //     onPressed: () => Fluttertoast.showToast(
-                //         msg: "This is Center Short Toast", fontSize: 18.sp),
-                //     child: const Text(
-                //       'Dont have account? Signup',
-                //       textAlign: TextAlign.center,
-                //     ))
               ],
             ),
           )),

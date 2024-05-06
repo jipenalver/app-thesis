@@ -46,7 +46,6 @@ class _MyAppState extends State<MyApp> {
     String? token = prefs.getString('token');
 
     if (token == null) return;
-
     setState(() => this.token = token);
     Fluttertoast.showToast(msg: this.token, fontSize: 18.sp);
   }

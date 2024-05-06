@@ -1,7 +1,7 @@
-import 'package:flutter/foundation.dart';
+import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:msit_thesis/views/dashboard.dart';
+import 'package:flutter/foundation.dart';
+import 'package:msit_thesis/model/user.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 
@@ -20,21 +20,19 @@ class AuthStates {
       );
 
       await prefs.setString('token', accessToken.token);
-      await prefs.setString('name', userData['name']);
-      await prefs.setString('email', userData['email']);
-      await prefs.setString('id', userData['id']);
-      await prefs.setString('profile', userData['picture']['data']['url']);
+
+      final user = User(
+          image: userData['picture']['data']['url'],
+          name: userData['name'],
+          email: userData['email'],
+          id: userData['id'],
+          isDarkMode: false);
+
+      final userJson = json.encode(user.toJson());
+      await prefs.setString('user', userJson);
 
       // ignore: unused_local_variable
       final Map<String, dynamic> userPosts = userData['posts']['data'];
-
-      // Navigator.push(
-      //     // ignore: use_build_context_synchronously
-      //     context,
-      //     MaterialPageRoute(
-      //         builder: (context) => const DashboardPage(
-      //               title: 'SIAM',
-      //             )));
     } else {
       if (kDebugMode) {
         print(result.status);
@@ -55,6 +53,7 @@ class AuthStates {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
 
     await prefs.remove('token');
+    await prefs.remove('user');
     await FacebookAuth.instance.logOut();
   }
 }

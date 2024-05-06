@@ -1,7 +1,9 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:msit_thesis/model/user.dart';
+import 'package:msit_thesis/views/login.dart';
+import 'package:msit_thesis/states/auth_states.dart';
 import 'package:msit_thesis/widget/profile_widget.dart';
-import 'package:msit_thesis/utils/user_preferences.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -12,10 +14,11 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-  final user = UserPreferences.myUser;
+  var authState = AuthStates();
 
   late SharedPreferences prefs;
-  String? image;
+  var user =
+      const User(image: '', name: '', email: '', id: '', isDarkMode: false);
 
   @override
   void initState() {
@@ -26,19 +29,22 @@ class _ProfilePageState extends State<ProfilePage> {
 
   Future init() async {
     prefs = await SharedPreferences.getInstance();
-    image = prefs.getString('image');
+    final userJson = prefs.getString('user');
+    if (userJson == null) return;
+
+    final user = User.fromJson(json.decode(userJson));
+    setState(() => this.user = user);
   }
 
   @override
   Widget build(BuildContext context) {
-    // final String? token = prefs.getString('token');
-
     return Container(
       color: Colors.white,
+      padding: const EdgeInsets.only(top: 12),
       child: ListView(
         physics: const BouncingScrollPhysics(),
         children: [
-          ProfileWidget(imagePath: image, onClicked: () async {}),
+          ProfileWidget(imagePath: user.image, onClicked: () async {}),
           const SizedBox(
             height: 24,
           ),
@@ -86,7 +92,7 @@ class _ProfilePageState extends State<ProfilePage> {
           height: 16,
         ),
         Text(
-          user.about,
+          user.id,
           style: const TextStyle(fontSize: 16, height: 1.4),
         ),
       ]),
@@ -94,11 +100,29 @@ class _ProfilePageState extends State<ProfilePage> {
   }
 
   Widget buildLogoutButton() {
-    return ElevatedButton(
-        onPressed: () {},
+    return ElevatedButton.icon(
+        icon: const Icon(Icons.logout),
         style: ElevatedButton.styleFrom(
-            shape: const StadiumBorder(),
-            padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 12)),
-        child: const Text('Logout'));
+            foregroundColor: Colors.black,
+            backgroundColor: Colors.green,
+            padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 12),
+            textStyle:
+                const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+            shape:
+                const BeveledRectangleBorder(borderRadius: BorderRadius.zero)),
+        onPressed: () {
+          authState.logoutFacebook();
+
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => const LoginPage(
+                        title: 'SIAM',
+                      )));
+        },
+        label: const Text(
+          'Logout',
+          textAlign: TextAlign.center,
+        ));
   }
 }

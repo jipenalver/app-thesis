@@ -2,7 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 
-class SignupState {
+class AuthStates {
   void loginFacebook() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
 
@@ -15,7 +15,6 @@ class SignupState {
       await prefs.setString('token', accessToken.token);
 
       // final String? token = prefs.getString('token');
-      // await prefs.remove('token');
     } else {
       if (kDebugMode) {
         print(result.status);
@@ -33,6 +32,9 @@ class SignupState {
   }
 
   void logoutFacebook() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    await prefs.remove('token');
     await FacebookAuth.instance.logOut();
   }
 }

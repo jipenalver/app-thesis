@@ -2,13 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:msit_thesis/views/login.dart';
 import 'package:msit_thesis/views/dashboard.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
-import 'package:msit_thesis/states/signup_states.dart';
+import 'package:msit_thesis/states/auth_states.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 
 void main() async {
   if (kIsWeb) {
-    // initialiaze the facebook javascript SDK
     await FacebookAuth.i.webAndDesktopInitialize(
       appId: "1345013539767157",
       cookie: true,
@@ -27,13 +26,13 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  // var signupState = SignupState();
+  var authState = AuthStates();
 
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   signupState.isLoggedFacebook();
-  // }
+  @override
+  void initState() {
+    super.initState();
+    authState.isLoggedFacebook();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +53,7 @@ class _MyAppState extends State<MyApp> {
           home: child,
         );
       },
-      child: const DashboardPage(title: 'SIAM'),
+      child: const LoginPage(title: 'SIAM'),
     );
   }
 }

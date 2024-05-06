@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:msit_thesis/views/profile.dart';
 import 'package:msit_thesis/components/appbars.dart';
-import 'package:msit_thesis/states/signup_states.dart';
+import 'package:msit_thesis/states/auth_states.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 
 class DashboardPage extends StatefulWidget {
@@ -14,7 +14,7 @@ class DashboardPage extends StatefulWidget {
 }
 
 class _DashboardPageState extends State<DashboardPage> {
-  var signupState = SignupState();
+  var authState = AuthStates();
 
   int index = 0;
 

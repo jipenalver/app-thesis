@@ -62,27 +62,27 @@ class _LoginPageState extends State<LoginPage> {
                               fontSize: 22, fontWeight: FontWeight.bold),
                           shape: const BeveledRectangleBorder(
                               borderRadius: BorderRadius.zero)),
-                      onPressed: () => authState.loginFacebook(),
+                      onPressed: () => authState.loginFacebook(context),
                       label: const Text(
                         'Login with Facebook',
                         textAlign: TextAlign.center,
                       )),
                 ),
-                TextButton(
-                    style: TextButton.styleFrom(
-                        foregroundColor: Colors.black87,
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 32, vertical: 16),
-                        textStyle: const TextStyle(
-                            fontSize: 18, fontWeight: FontWeight.bold),
-                        shape: const BeveledRectangleBorder(
-                            borderRadius: BorderRadius.zero)),
-                    onPressed: () => Fluttertoast.showToast(
-                        msg: "This is Center Short Toast", fontSize: 18.sp),
-                    child: const Text(
-                      'Dont have account? Signup',
-                      textAlign: TextAlign.center,
-                    ))
+                // TextButton(
+                //     style: TextButton.styleFrom(
+                //         foregroundColor: Colors.black87,
+                //         padding: const EdgeInsets.symmetric(
+                //             horizontal: 32, vertical: 16),
+                //         textStyle: const TextStyle(
+                //             fontSize: 18, fontWeight: FontWeight.bold),
+                //         shape: const BeveledRectangleBorder(
+                //             borderRadius: BorderRadius.zero)),
+                //     onPressed: () => Fluttertoast.showToast(
+                //         msg: "This is Center Short Toast", fontSize: 18.sp),
+                //     child: const Text(
+                //       'Dont have account? Signup',
+                //       textAlign: TextAlign.center,
+                //     ))
               ],
             ),
           )),

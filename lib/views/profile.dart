@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:msit_thesis/model/user.dart';
 import 'package:msit_thesis/widget/profile_widget.dart';
 import 'package:msit_thesis/utils/user_preferences.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -13,14 +14,31 @@ class ProfilePage extends StatefulWidget {
 class _ProfilePageState extends State<ProfilePage> {
   final user = UserPreferences.myUser;
 
+  late SharedPreferences prefs;
+  String? image;
+
+  @override
+  void initState() {
+    super.initState();
+
+    init();
+  }
+
+  Future init() async {
+    prefs = await SharedPreferences.getInstance();
+    image = prefs.getString('image');
+  }
+
   @override
   Widget build(BuildContext context) {
+    // final String? token = prefs.getString('token');
+
     return Container(
       color: Colors.white,
       child: ListView(
         physics: const BouncingScrollPhysics(),
         children: [
-          ProfileWidget(imagePath: user.imagePath, onClicked: () async {}),
+          ProfileWidget(imagePath: image, onClicked: () async {}),
           const SizedBox(
             height: 24,
           ),

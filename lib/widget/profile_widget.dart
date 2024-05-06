@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class ProfileWidget extends StatelessWidget {
-  final String imagePath;
+  final String? imagePath;
   final VoidCallback onClicked;
 
   const ProfileWidget({
@@ -24,7 +24,7 @@ class ProfileWidget extends StatelessWidget {
   }
 
   Widget buildImage() {
-    final image = NetworkImage(imagePath);
+    final image = NetworkImage(imagePath!);
 
     return ClipOval(
         child: Material(

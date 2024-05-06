@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:msit_thesis/views/login.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:msit_thesis/views/dashboard.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:msit_thesis/states/auth_states.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 
 void main() async {
@@ -28,10 +30,25 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   var authState = AuthStates();
 
+  late SharedPreferences prefs;
+  String token = '';
+
   @override
   void initState() {
     super.initState();
+
+    init();
+  }
+
+  Future init() async {
     authState.isLoggedFacebook();
+    prefs = await SharedPreferences.getInstance();
+    String? token = prefs.getString('token');
+
+    if (token == null) return;
+
+    setState(() => this.token = token);
+    Fluttertoast.showToast(msg: this.token, fontSize: 18.sp);
   }
 
   @override
@@ -53,7 +70,9 @@ class _MyAppState extends State<MyApp> {
           home: child,
         );
       },
-      child: const LoginPage(title: 'SIAM'),
+      child: token == ''
+          ? const LoginPage(title: 'SIAM')
+          : const DashboardPage(title: 'SIAM'),
     );
   }
 }

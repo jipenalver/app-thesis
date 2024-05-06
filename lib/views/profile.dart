@@ -28,7 +28,13 @@ class _ProfilePageState extends State<ProfilePage> {
           const SizedBox(
             height: 48,
           ),
-          buildAbout(user)
+          buildAbout(user),
+          const SizedBox(
+            height: 24,
+          ),
+          Center(
+            child: buildLogoutButton(),
+          )
         ],
       ),
     );
@@ -50,7 +56,7 @@ class _ProfilePageState extends State<ProfilePage> {
     );
   }
 
-  buildAbout(User user) {
+  Widget buildAbout(User user) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 48),
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
@@ -67,5 +73,14 @@ class _ProfilePageState extends State<ProfilePage> {
         ),
       ]),
     );
+  }
+
+  Widget buildLogoutButton() {
+    return ElevatedButton(
+        onPressed: () {},
+        style: ElevatedButton.styleFrom(
+            shape: const StadiumBorder(),
+            padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 12)),
+        child: const Text('Logout'));
   }
 }

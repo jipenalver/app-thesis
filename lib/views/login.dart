@@ -42,10 +42,6 @@ class _LoginPageState extends State<LoginPage> {
                     errorWidget: (context, url, error) =>
                         const Icon(Icons.error),
                   ),
-                  // Image(
-                  //     image: NetworkImage(
-                  //         'https://www.carsu.edu.ph/sites/default/files/CSU%20Official%20Seal_1216%20x%202009.png'),
-                  //     fit: BoxFit.cover),
                 ),
                 Container(
                   margin: const EdgeInsets.only(top: 24.0, bottom: 8.0),

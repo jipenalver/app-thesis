@@ -16,7 +16,7 @@ class AuthStates {
       final AccessToken accessToken = result.accessToken!;
 
       final userData = await FacebookAuth.i.getUserData(
-        fields: "id,name,email,picture,posts",
+        fields: "id,name,email,picture.width(800).height(800),posts",
       );
 
       await prefs.setString('token', accessToken.token);

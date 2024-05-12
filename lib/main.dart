@@ -7,6 +7,7 @@ import 'package:msit_thesis/states/auth_states.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 
 void main() async {
   if (kIsWeb) {
@@ -17,6 +18,8 @@ void main() async {
       version: "v15.0",
     );
   }
+  WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   runApp(const MyApp());
 }
 
@@ -41,7 +44,7 @@ class _MyAppState extends State<MyApp> {
   }
 
   Future init() async {
-    authState.isLoggedFacebook();
+    // authState.isLoggedFacebook();
     prefs = await SharedPreferences.getInstance();
     String? token = prefs.getString('token');
 
@@ -73,5 +76,12 @@ class _MyAppState extends State<MyApp> {
           ? const LoginPage(title: 'SIAM')
           : const DashboardPage(title: 'SIAM'),
     );
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+
+    FlutterNativeSplash.remove();
   }
 }

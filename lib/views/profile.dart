@@ -18,7 +18,7 @@ class _ProfilePageState extends State<ProfilePage> {
 
   late SharedPreferences prefs;
   var user =
-      const User(image: '', name: '', email: '', id: '', isDarkMode: false);
+      const UserData(image: '', name: '', email: '', id: '', isDarkMode: false);
 
   @override
   void initState() {
@@ -32,7 +32,7 @@ class _ProfilePageState extends State<ProfilePage> {
     final userJson = prefs.getString('user');
     if (userJson == null) return;
 
-    final user = User.fromJson(json.decode(userJson));
+    final user = UserData.fromJson(json.decode(userJson));
     setState(() => this.user = user);
   }
 
@@ -63,7 +63,7 @@ class _ProfilePageState extends State<ProfilePage> {
     );
   }
 
-  Widget buildName(User user) {
+  Widget buildName(UserData user) {
     return Column(
       children: [
         Text(user.name,
@@ -79,7 +79,7 @@ class _ProfilePageState extends State<ProfilePage> {
     );
   }
 
-  Widget buildAbout(User user) {
+  Widget buildAbout(UserData user) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 48),
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [

@@ -1,11 +1,11 @@
-class User {
+class UserData {
   final String image;
   final String name;
   final String email;
   final String id;
   final bool isDarkMode;
 
-  const User({
+  const UserData({
     required this.image,
     required this.name,
     required this.email,
@@ -13,7 +13,7 @@ class User {
     required this.isDarkMode,
   });
 
-  static User fromJson(Map<String, dynamic> json) => User(
+  static UserData fromJson(Map<String, dynamic> json) => UserData(
       image: json['image'],
       name: json['name'],
       email: json['email'],

@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:msit_thesis/views/login.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+// import 'package:fluttertoast/fluttertoast.dart';
 import 'package:msit_thesis/views/dashboard.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:msit_thesis/states/auth_states.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
@@ -18,6 +19,11 @@ void main() async {
       version: "v15.0",
     );
   }
+  await Supabase.initialize(
+    url: 'https://pdbpqmokapzhspblkhcc.supabase.co',
+    anonKey:
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBkYnBxbW9rYXB6aHNwYmxraGNjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDAwMzg0MzcsImV4cCI6MjAxNTYxNDQzN30.1OFcHjOLHBufWF5Gr97mGte5T0nruqHsV0skWxhUDgg',
+  );
   // WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   // FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   runApp(const MyApp());
@@ -49,7 +55,7 @@ class _MyAppState extends State<MyApp> {
 
     if (token == null) return;
     setState(() => this.token = token);
-    Fluttertoast.showToast(msg: this.token, fontSize: 18.sp);
+    // Fluttertoast.showToast(msg: this.token, fontSize: 18.sp);
   }
 
   @override

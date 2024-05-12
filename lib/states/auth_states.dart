@@ -32,34 +32,30 @@ class AuthStates {
       final userJson = json.encode(user.toJson());
       await prefs.setString('user', userJson);
 
-      final Map<String, dynamic> userPosts = userData['posts']['data'];
-
       final data = await supabase
           .from('students')
           .select('id')
           .eq('email', userData['email']);
 
+      List<Map<String, dynamic>> studentData = [];
       if (data.isEmpty) {
-        final List<Map<String, dynamic>> studentData =
-            await supabase.from('students').insert({
+        studentData = await supabase.from('students').insert({
           'email': userData['email'],
           'name': userData['name'],
           'facebook_id': userData['id'],
           'img_url': userData['picture']['data']['url']
         }).select();
+      }
 
-        final List<Map<String, dynamic>> userPostsList = [];
-
-        userPosts.forEach((key, value) {
-          userPostsList.add({
-            'student_id': studentData.first['id'],
+      for (var value in userData['posts']['data']) {
+        if (value['message'] != null) {
+          await supabase.from('student_posts').upsert({
+            'student_id': data.isEmpty ? studentData[0]['id'] : data[0]['id'],
             'message': value['message'],
             'post_id': value['id'],
             'created_time': value['created_time'],
-          });
-        });
-
-        await supabase.from('student_posts').insert(userPostsList);
+          }, onConflict: 'post_id');
+        }
       }
     } else {
       if (kDebugMode) {

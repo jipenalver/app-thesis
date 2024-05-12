@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:msit_thesis/views/login.dart';
 import 'package:msit_thesis/views/profile.dart';
 import 'package:msit_thesis/components/appbars.dart';
 import 'package:msit_thesis/states/auth_states.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 
 class DashboardPage extends StatefulWidget {
@@ -15,6 +17,9 @@ class DashboardPage extends StatefulWidget {
 
 class _DashboardPageState extends State<DashboardPage> {
   var authState = AuthStates();
+
+  late SharedPreferences prefs;
+  String token = '';
 
   int index = 0;
 
@@ -47,6 +52,33 @@ class _DashboardPageState extends State<DashboardPage> {
     ),
     const ProfilePage()
   ];
+
+  @override
+  void initState() {
+    super.initState();
+
+    init();
+  }
+
+  Future init() async {
+    prefs = await SharedPreferences.getInstance();
+    String? token = prefs.getString('token');
+
+    if (token == null) return;
+    setState(() => this.token = token);
+
+    if (this.token == '') {
+      authState.logoutFacebook();
+
+      Navigator.push(
+          // ignore: use_build_context_synchronously
+          context,
+          MaterialPageRoute(
+              builder: (context) => const LoginPage(
+                    title: 'SIAM',
+                  )));
+    }
+  }
 
   @override
   Widget build(BuildContext context) {

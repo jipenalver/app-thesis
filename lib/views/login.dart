@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:msit_thesis/views/dashboard.dart';
 import 'package:msit_thesis/states/auth_states.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 
@@ -56,7 +57,15 @@ class _LoginPageState extends State<LoginPage> {
                               fontSize: 22, fontWeight: FontWeight.bold),
                           shape: const BeveledRectangleBorder(
                               borderRadius: BorderRadius.zero)),
-                      onPressed: () => authState.loginFacebook(context),
+                      onPressed: () {
+                        authState.loginFacebook();
+
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    const DashboardPage(title: 'SIAM')));
+                      },
                       label: const Text(
                         'Login with Facebook',
                         textAlign: TextAlign.center,

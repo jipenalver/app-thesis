@@ -1,12 +1,11 @@
 import 'dart:convert';
-import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
 import 'package:msit_thesis/model/user.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 
 class AuthStates {
-  void loginFacebook(BuildContext context) async {
+  void loginFacebook() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
 
     final LoginResult result = await FacebookAuth.i
@@ -39,14 +38,6 @@ class AuthStates {
         print(result.message);
       }
     }
-  }
-
-  Future<bool> isLoggedFacebook() async {
-    final AccessToken? accessToken = await FacebookAuth.i.accessToken;
-
-    if (accessToken != null) return true;
-
-    return false;
   }
 
   void logoutFacebook() async {

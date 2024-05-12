@@ -39,7 +39,6 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.white,
       padding: const EdgeInsets.only(top: 12),
       child: ListView(
         physics: const BouncingScrollPhysics(),
@@ -75,7 +74,7 @@ class _ProfilePageState extends State<ProfilePage> {
         const SizedBox(
           height: 4,
         ),
-        Text(user.email, style: const TextStyle(color: Colors.grey)),
+        Text(user.email),
       ],
     );
   }

@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:msit_thesis/states/signup_states.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-// import 'package:cached_network_image/cached_network_image.dart';
+import 'package:msit_thesis/views/dashboard.dart';
+import 'package:msit_thesis/states/auth_states.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key, required this.title});
@@ -14,7 +13,7 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  var signupState = SignupState();
+  var authState = AuthStates();
 
   @override
   Widget build(BuildContext context) {
@@ -31,24 +30,19 @@ class _LoginPageState extends State<LoginPage> {
             padding: const EdgeInsets.all(32),
             child: Column(
               children: [
-                const SizedBox(
+                SizedBox(
                   height: 550,
                   width: 300,
-                  child:
-                      // CachedNetworkImage(
-                      //   imageUrl:
-                      //       "https://www.carsu.edu.ph/sites/default/files/CSU%20Official%20Seal_1216%20x%202009.png",
-                      //   progressIndicatorBuilder:
-                      //       (context, url, downloadProgress) =>
-                      //           CircularProgressIndicator(
-                      //               value: downloadProgress.progress),
-                      //   errorWidget: (context, url, error) =>
-                      //       const Icon(Icons.error),
-                      // ),
-                      Image(
-                          image: NetworkImage(
-                              'https://www.carsu.edu.ph/sites/default/files/CSU%20Official%20Seal_1216%20x%202009.png'),
-                          fit: BoxFit.cover),
+                  child: CachedNetworkImage(
+                    imageUrl:
+                        "https://www.carsu.edu.ph/sites/default/files/CSU%20Official%20Seal_1216%20x%202009.png",
+                    progressIndicatorBuilder:
+                        (context, url, downloadProgress) =>
+                            CircularProgressIndicator(
+                                value: downloadProgress.progress),
+                    errorWidget: (context, url, error) =>
+                        const Icon(Icons.error),
+                  ),
                 ),
                 Container(
                   margin: const EdgeInsets.only(top: 24.0, bottom: 8.0),
@@ -58,29 +52,25 @@ class _LoginPageState extends State<LoginPage> {
                           foregroundColor: Colors.black,
                           backgroundColor: Colors.green,
                           padding: const EdgeInsets.symmetric(
-                              horizontal: 32, vertical: 16),
-                          textStyle: TextStyle(
-                              fontSize: 20.sp, fontWeight: FontWeight.bold),
+                              horizontal: 32, vertical: 12),
+                          textStyle: const TextStyle(
+                              fontSize: 22, fontWeight: FontWeight.bold),
                           shape: const BeveledRectangleBorder(
                               borderRadius: BorderRadius.zero)),
-                      onPressed: () => signupState.loginFacebook(),
+                      onPressed: () {
+                        authState.loginFacebook();
+
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    const DashboardPage(title: 'SIAM')));
+                      },
                       label: const Text(
                         'Login with Facebook',
                         textAlign: TextAlign.center,
                       )),
                 ),
-                TextButton(
-                    style: TextButton.styleFrom(
-                        foregroundColor: Colors.black87,
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 32, vertical: 16),
-                        textStyle: TextStyle(
-                            fontSize: 16.sp, fontWeight: FontWeight.bold),
-                        shape: const BeveledRectangleBorder(
-                            borderRadius: BorderRadius.zero)),
-                    onPressed: () => Fluttertoast.showToast(
-                        msg: "This is Center Short Toast", fontSize: 18.sp),
-                    child: const Text('Dont have account? Signup'))
               ],
             ),
           )),

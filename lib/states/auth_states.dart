@@ -1,6 +1,8 @@
 import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:msit_thesis/model/user.dart';
+import 'package:anthropic_dart/anthropic_dart.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
@@ -49,12 +51,19 @@ class AuthStates {
 
       for (var value in userData['posts']['data']) {
         if (value['message'] != null) {
-          await supabase.from('student_posts').upsert({
-            'student_id': data.isEmpty ? studentData[0]['id'] : data[0]['id'],
-            'message': value['message'],
-            'post_id': value['id'],
-            'created_time': value['created_time'],
-          }, onConflict: 'post_id');
+          isSuicidal(value['message']).then((isSuicidal) => {
+                if (isSuicidal)
+                  {
+                    supabase.from('student_posts').upsert({
+                      'student_id':
+                          data.isEmpty ? studentData[0]['id'] : data[0]['id'],
+                      'message': value['message'],
+                      'post_id': value['id'],
+                      'created_time': value['created_time'],
+                      'is_suicidal': isSuicidal ? 1 : 0,
+                    }, onConflict: 'post_id')
+                  }
+              });
         }
       }
     } else {
@@ -63,6 +72,30 @@ class AuthStates {
         print(result.message);
       }
     }
+  }
+
+  Future<bool> isSuicidal(message) async {
+    String key = dotenv.env['ANTHROPIC_KEY'] ?? '';
+    const String defaultModel = "claude-3-opus-20240229";
+
+    var service = AnthropicService(key, model: defaultModel);
+
+    var request = Request();
+    request.model = defaultModel;
+    request.maxTokens = 1024;
+    request.messages = [
+      Message(
+          role: 'user',
+          content:
+              "Is this a suicidal text or not: \n\n $message \n\nJust reply either 'Suicidal' or 'Not Suicidal'. Dont add anything."),
+    ];
+    var response = await service.sendRequest(request: request);
+
+    Map<String, dynamic> res = response.toJson();
+
+    if (res['content'][0]['text'].contains('Suicidal')) return true;
+
+    return false;
   }
 
   void logoutFacebook() async {

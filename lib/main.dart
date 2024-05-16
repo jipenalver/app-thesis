@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:msit_thesis/views/login.dart';
 // import 'package:fluttertoast/fluttertoast.dart';
 import 'package:msit_thesis/views/dashboard.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:msit_thesis/states/auth_states.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -11,18 +12,18 @@ import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 // import 'package:flutter_native_splash/flutter_native_splash.dart';
 
 void main() async {
+  await dotenv.load(fileName: ".env");
   if (kIsWeb) {
     await FacebookAuth.i.webAndDesktopInitialize(
-      appId: "1345013539767157",
+      appId: dotenv.env['FACEBOOK_APP_ID'] ?? '',
       cookie: true,
       xfbml: true,
       version: "v15.0",
     );
   }
   await Supabase.initialize(
-    url: 'https://pdbpqmokapzhspblkhcc.supabase.co',
-    anonKey:
-        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBkYnBxbW9rYXB6aHNwYmxraGNjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDAwMzg0MzcsImV4cCI6MjAxNTYxNDQzN30.1OFcHjOLHBufWF5Gr97mGte5T0nruqHsV0skWxhUDgg',
+    url: dotenv.env['SUPABASE_URL'] ?? '',
+    anonKey: dotenv.env['SUPABASE_KEY'] ?? '',
   );
   // WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   // FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
